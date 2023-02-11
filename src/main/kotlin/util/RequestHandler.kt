@@ -24,8 +24,15 @@ import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
+import java.awt.Graphics2D
+import java.awt.geom.AffineTransform
+import java.awt.image.BufferedImage
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.InputStream
+import javax.imageio.ImageIO
+
 
 internal suspend fun getAPIResponse(body: RequestBody): ResponseBody {
     return MiraiConsoleLolicon.client.post("https://api.lolicon.app/setu/v2") {
@@ -34,9 +41,27 @@ internal suspend fun getAPIResponse(body: RequestBody): ResponseBody {
     }.body()
 }
 
+fun rotateImageByDegrees(img: BufferedImage, degree: Int): BufferedImage? {
+    val rads = Math.toRadians(degree.toDouble())
+    val w = img.width
+    val h = img.height
+    val rotatedImage = BufferedImage(w, h, img.type)
+    val g2d = rotatedImage.createGraphics() as Graphics2D
+    val at = AffineTransform()
+    at.rotate(rads, (w / 2).toDouble(), (h / 2).toDouble())
+    g2d.transform = at
+    g2d.drawImage(img, 0, 0, null)
+    return rotatedImage
+}
+
 internal suspend fun downloadImage(url: String): InputStream {
     val response: HttpResponse = MiraiConsoleLolicon.client.get(url)
-    val result: ByteArray = response.body()
+    val imageBytes: ByteArray = response.body()
+    val bufferedImage = ImageIO.read(ByteArrayInputStream(imageBytes))
+    val rotatedImage = rotateImageByDegrees(bufferedImage, 180)
+    val out = ByteArrayOutputStream()
+    ImageIO.write(rotatedImage, "png", out)
+    val result: ByteArray = out.toByteArray()
     if (PluginConfig.save) {
         val urlPaths = url.split("/")
         val file = cacheFolder.resolve(urlPaths[urlPaths.lastIndex])
