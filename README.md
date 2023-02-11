@@ -1,4 +1,4 @@
-# mirai-console-lolicon
+# mirai-console-lolicon（修改版）
 
 [![GitHub top language](https://img.shields.io/github/languages/top/Samarium150/mirai-console-lolicon?style=flat)](https://kotlinlang.org/)
 [![Gradle CI](https://github.com/Samarium150/mirai-console-lolicon/workflows/Gradle%20CI/badge.svg?branch=master)](https://github.com/Samarium150/mirai-console-lolicon/actions?query=workflow%3A%22Gradle+CI%22)
@@ -6,6 +6,8 @@
 [![GitHub all releases](https://img.shields.io/github/downloads/Samarium150/mirai-console-lolicon/total)](https://github.com/Samarium150/mirai-console-lolicon/releases/latest)
 [![visitors](https://visitor-badge.glitch.me/badge?page_id=Samarium150.mirai%2Dconsole%2Dlolicon)]()
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSamarium150%2Fmirai-console-lolicon.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FSamarium150%2Fmirai-console-lolicon?ref=badge_shield)
+
+和本体的差别就是出图是旋转180后的图，防止被tx和谐
 
 受 [ACGPro](https://github.com/ShrBox/ACGPro) 启发而写
 
